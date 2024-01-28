@@ -6,6 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using System.Net;
+using Microsoft.Win32;
+using System.Net.Sockets;
+using System.Management;
+using System.Net.NetworkInformation;
+using System.Runtime.Remoting.Channels;
+using System.Threading;
 
 namespace DLNA_Link_Catcher
 {
@@ -13,6 +21,10 @@ namespace DLNA_Link_Catcher
     {
         public Form1()
         {
+            int srcPort = 1900;
+            int dstPort = 1060;
+            string broadcastAddress = IPAddress.Broadcast.ToString();
+            
             InitializeComponent();
         }
 
