@@ -19,18 +19,49 @@ namespace DLNA_Link_Catcher
 {
     public partial class Form1 : Form
     {
+        int srcPort = 1900;
+        int dstPort = 1060;
+
+        UdpClient udpClient;
+        string broadcastAddress;
+        bool rendererStatus;
+        byte[] data;
+        IPEndPoint srcIEP;
+
+
         public Form1()
         {
-            int srcPort = 1900;
-            int dstPort = 1060;
-            string broadcastAddress = IPAddress.Broadcast.ToString();
-            
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            broadcastAddress = IPAddress.Broadcast.ToString();
+            udpClient = new UdpClient();
+            rendererStatus = false;
+            data = Encoding.ASCII.GetBytes("Message.");
+            srcIEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), srcPort);
+        }
 
+        private void Send()
+        {
+            rendererStatus = true;
+            udpClient.Send(data, data.Length, srcIEP);
+        }
+
+        private void Receive()
+        {
+            rendererStatus = false;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Send();
         }
     }
 }
